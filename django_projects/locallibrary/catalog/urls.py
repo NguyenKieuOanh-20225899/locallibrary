@@ -1,6 +1,11 @@
 from django.urls import path
 from . import views
+from django.http import HttpResponse
+
 
 urlpatterns = [
-    # Tạm thời để trống - bạn sẽ thêm các tuyến đường vào đây sau
+    path('', views.index, name='index'),
 ]
+
+
+

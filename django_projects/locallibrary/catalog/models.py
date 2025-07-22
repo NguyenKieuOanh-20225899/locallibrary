@@ -1,6 +1,6 @@
 from django.db import models
 from django.urls import reverse
-
+import uuid
 
 
 class Genre(models.Model):
@@ -41,7 +41,15 @@ class Book(models.Model):
     def get_absolute_url(self):
         """Returns the url to access a detail record for this book."""
         return reverse('book-detail', args=[str(self.id)])
-import uuid
+
+    def display_genre(self):
+        """Create a string for the Genre. This is required to display genre in Admin."""
+        return ', '.join(genre.name for genre in self.genre.all()[:3])
+    
+    display_genre.short_description = 'Genre'  # Đặt tên cột hiển thị trong Django Admin
+
+
+
 
 class BookInstance(models.Model):
     """Model representing a specific copy of a book (i.e. that can be borrowed from the library)."""
