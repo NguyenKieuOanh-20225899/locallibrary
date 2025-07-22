@@ -42,7 +42,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'catalog.apps.CatalogConfig',
-    
 ]
 
 MIDDLEWARE = [
@@ -89,7 +88,6 @@ DATABASES = {
         'PORT': config('DB_PORT'),
     }
 }
-
 
 
 
