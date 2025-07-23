@@ -1,0 +1,29 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# SQLite database (có thể regenerate)
+*.sqlite3
+
+# Môi trường ảo
+venv/
+ENV/
+env/
+.venv/
+
+# VSCode & PyCharm
+.vscode/
+.idea/
+
+# File hệ thống
+.DS_Store
+
+# Dịch đa ngôn ngữ
+*.mo
+*.pot
+*.po
+
+# Migrations (trừ __init__.py)
+*/migrations/
+!*/migrations/__init__.py
