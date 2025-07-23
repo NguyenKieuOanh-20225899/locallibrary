@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from catalog.models import Book, Author, BookInstance, Genre
-
+from django.views import generic
 
 
 def index(request):
@@ -26,3 +26,25 @@ def index(request):
 
     # Render trang index.html với dữ liệu context
     return render(request, 'catalog/index.html', context)
+
+class BookListView(generic.ListView):
+    model = Book
+
+    # Tuỳ chỉnh tên biến context (mặc định là book_list)
+    #context_object_name = 'my_book_list'
+
+    # Lọc dữ liệu, giới hạn số lượng
+  
+    paginate_by = 2
+    # Tuỳ chỉnh đường dẫn template (không theo pattern mặc định nữa)
+    template_name =  'catalog/book_list.html'
+
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get the context
+        context = super(BookListView, self).get_context_data(**kwargs)
+        # Create any data and add it to the context
+        context['some_data'] = 'This is just some data'
+        return context
+
+class BookDetailView(generic.DetailView):
+    model = Book
