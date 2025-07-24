@@ -1,6 +1,9 @@
 from django.shortcuts import render
 from catalog.models import Book, Author, BookInstance, Genre
 from django.views import generic
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views import View
+from django.contrib.auth.decorators import permission_required
 
 
 def index(request):
@@ -50,3 +53,20 @@ class BookListView(generic.ListView):
 
 class BookDetailView(generic.DetailView):
     model = Book
+
+@permission_required('catalog.can_mark_returned')
+@permission_required('catalog.can_edit')  # ví dụ thêm
+class MyView(LoginRequiredMixin, View):
+    login_url = '/login/'  # Đường dẫn trang đăng nhập thay vì mặc định /accounts/login/
+    redirect_field_name = 'redirect_to'  # Dùng ?redirect_to=/duong-dan-thay-vi-next
+    permission_required = ('catalog.can_mark_returned', 'catalog.can_edit')
+    
+class LoanedBooksByUserListView(LoginRequiredMixin, generic.ListView):
+    model = BookInstance
+    template_name = 'catalog/bookinstance_list_borrowed_user.html'
+    paginate_by = 10
+
+    def get_queryset(self):
+        return BookInstance.objects.filter(
+            borrower=self.request.user
+        ).filter(status__exact='o').order_by('due_back')
