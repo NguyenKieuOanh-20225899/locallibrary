@@ -145,3 +145,13 @@ class AuthorDetail(DetailView):
 class AuthorListView(generic.ListView):
     model = Author
     template_name = 'catalog/author_list.html'
+    paginate_by = 10
+
+@classmethod
+def setUpTestData(cls):
+    number_of_authors = 13
+    for author_num in range(number_of_authors):
+        Author.objects.create(
+            first_name=f'Author{author_num}',
+            last_name=f'Surname{author_num}',
+        )
