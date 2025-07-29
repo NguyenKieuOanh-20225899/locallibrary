@@ -1,4 +1,5 @@
 from django.db import models
+
 """String for representing the Model object."""
 from django.urls import reverse
 
